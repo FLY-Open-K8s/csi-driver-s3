@@ -21,10 +21,10 @@ spec:
     env:
       - name: S3_BUCKET
         #value值请使用对象存储Bucket名称替换
-        value: storage-1026
+        value: test0425
       - name: S3_URL
         #value值请使用对象存储Bucket的外网Endpoint替换
-        value: https://s3.cn-north-1.jdcloud-oss.com
+        value: http://10.0.34.250:20480
       - name: MNT_POINT
         # value值可不修改；或使用对象存储Bucket在容器中的挂载目录替换；
         # 如需修改value值请同时修改名称为 `mntdatas3fs` 的volume的 `mountPath` 值，保证共享目录名称一致；
