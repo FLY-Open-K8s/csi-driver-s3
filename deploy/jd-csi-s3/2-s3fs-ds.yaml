@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: s3fs-mount
+spec:
+  selector:
+  matchLabels:
+    name: s3fs-mount
+    template:
+  metadata:
+    labels:
+    name: s3fs-mount
+  spec:
+    containers:
+      - name: s3fs-mount
+    #京东云提供的s3fs镜像，您也可以使用自定义的s3fs镜像替换
+    image: jdcloud-cn-north-1.jcr.service.jdcloud.com/jdcloud/oss-volumes:latest
+    securityContext:
+      #不可修改，否则对象存储Bucket将无法挂载
+      privileged: true
+    env:
+      - name: S3_BUCKET
+        #value值请使用对象存储Bucket名称替换
+        value: storage-1026
+      - name: S3_URL
+        #value值请使用对象存储Bucket的外网Endpoint替换
+        value: https://s3.cn-north-1.jdcloud-oss.com
+      - name: MNT_POINT
+        # value值可不修改；或使用对象存储Bucket在容器中的挂载目录替换；
+        # 如需修改value值请同时修改名称为 `mntdatas3fs` 的volume的 `mountPath` 值，保证共享目录名称一致；
+        value: /data
+    volumeMounts:
+      - name: mntdatas3fs
+        # mountPath值可不修改；如ENV MNT_POINT的value值被修改，则mountPath值必须同时被修改，以保证共享目录名称一致
+        mountPath: /data:shared
+      - name: mysecret
+        mountPath: "/mysecret"
+      volumes:
+        - name: mntdatas3fs
+    hostPath:
+      path: /mnt/data-s3fs
+      - name: mysecret
+    secret:
+      secretName: s3fs-secret
+      items:
+        - key: passwd-s3fs
+      #path值不可修改，因s3fs指令会检查文件/mysecret/passwd-s3fs的权限（0600）
+      path: passwd-s3fs
+      #mode值不可修改，因s3fs指令会检查文件/mysecret/passwd-s3fs的权限（0600）
+      mode: 0600

@@ -4,11 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/majst01/csi-driver-s3/pkg/s3"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
 	"github.com/kubernetes-csi/csi-test/v4/pkg/sanity"
+	"github.com/majst01/csi-driver-s3/pkg/s3"
 )
 
 var _ = Describe("S3Driver", func() {
@@ -30,7 +27,7 @@ var _ = Describe("S3Driver", func() {
 				TargetPath:  os.TempDir() + "/s3fs-target",
 				StagingPath: os.TempDir() + "/s3fs-staging",
 				Address:     csiEndpoint,
-				SecretsFile: "../../test/secret.yaml",
+				SecretsFile: "../../test/secret-minio.yaml",
 				TestVolumeParameters: map[string]string{
 					"mounter": "s3fs",
 				},

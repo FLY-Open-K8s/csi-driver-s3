@@ -17,7 +17,7 @@ This is still very experimental and should not be used in any production environ
 ### Create a secret with your S3 credentials
 
 ```yaml
-# deploy/kubernetes/secret.yaml
+# deploy/kubernetes/secret-minio.yaml
 apiVersion: v1
 kind: Secret
 metadata:
