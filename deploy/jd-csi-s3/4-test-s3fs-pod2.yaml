@@ -4,18 +4,18 @@ metadata:
   name: test-s3fs-pod-2
 spec:
   containers:
-    - name: test-s3fs-pod-2
-  image: busybox:latest
-  command:
-    - "/bin/sh"
-  args:
-    - "-c"
-    - "echo helloworld > /mnt/SUCCESS && sleep 60000 || exit 1"
-  volumeMounts:
+  - name: test-s3fs-pod-2
+    image: busybox:latest
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "echo helloworld > /mnt/SUCCESS && sleep 60000 || exit 1"
+    volumeMounts:
     - name: mntdatas3fs
       mountPath: "/mnt"
-    restartPolicy: "Never"
-    volumes:
-      - name: mntdatas3fs
-  hostPath:
-    path: /mnt/data-s3fs
+  restartPolicy: "Never"
+  volumes:
+  - name: mntdatas3fs
+    hostPath:
+      path: /mnt/data-s3fs

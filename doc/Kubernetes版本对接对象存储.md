@@ -1,4 +1,4 @@
-# SothisAI-Kubernetes版本对接对象存储
+# Kubernetes版本对接对象存储
 
 [toc]
 
